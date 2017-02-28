@@ -26,22 +26,22 @@
 
 # Check has been developed using:
 # Papago 2TH ETH - Thermo / Humidity / Dew point meter with eth if
-# Device Firmware Version   1.4/6
+# Device Firmware Version   1.7/15
 # http://www.papouch.com/en/shop/product/papago-2th-eth-temperature-and-humidity-meter-with-ethernet/
 #
 # +------------------------------------------------------------------+
 # | This file has been contributed by:                               |
 # |                                                                  |
-# | Václav Ovsík <vaclav.ovsik@gmail.com>             Copyright 2015 |
+# | Václav Ovsík <vaclav.ovsik@gmail.com>             Copyright 2017 |
 # +------------------------------------------------------------------+
 
 # Example info:
-#   [['0', '221', '0'],
-#    ['4', '0', '0'],
-#    ['4', '0', '0'],
-#    ['0', '224', '0'],
-#    ['0', '395', '0'],
-#    ['0', '79', '0']]
+#   [['1', '0', '209', '0'],
+#    ['0', '4', '0', '0'],
+#    ['0', '4', '0', '0'],
+#    ['1', '0', '199', '0'],
+#    ['2', '0', '242', '0'],
+#    ['3', '0', '-11', '0']]
 #
 
 
@@ -65,7 +65,7 @@ papouch_papago2theth_desc = [
 
 
 def inventory_papouch_papago2theth(info):
-    for (sens, name, ident, unit), (chstatus, chval, chunit) \
+    for (sens, name, ident, unit), (chtype, chstatus, chval, chunit) \
             in zip(papouch_papago2theth_desc, info):
         if chstatus == '4':
             continue
@@ -76,7 +76,7 @@ def check_papouch_papago2theth(item, params, info):
         if x is None:
             return ''
         return str(x)
-    for (sens, name, ident, unit), (chstatus, chval, chunit) \
+    for (sens, name, ident, unit), (chtype, chstatus, chval, chunit) \
             in zip(papouch_papago2theth_desc, info):
         if sens + ' ' + name == item:
             chval = saveint(chval) / 10.0
@@ -116,9 +116,10 @@ check_info["papouch_papago2theth"] = {
     "has_perfdata"          : True,
     "snmp_scan_function"    : lambda oid: "Papago_2TH_ETH" == oid(".1.3.6.1.2.1.1.1.0"),
     "snmp_info"		    : ( ".1.3.6.1.4.1.18248.31.1.2.1.1", [
-            '1',    # papagoV01-MIB::inChStatus
-            '2',    # papagoV01-MIB::inChValue
-            '3',    # papagoV01-MIB::inChUnits
+            '1',    # papago_temp_V02-MIB::inChType
+            '2',    # papago_temp_V02-MIB::inChStatus
+            '3',    # papago_temp_V02-MIB::inChValue
+            '4',    # papago_temp_V02-MIB::inChUnits
         ]),
     "default_levels_variable" : "papouch_papago2theth",
 }
