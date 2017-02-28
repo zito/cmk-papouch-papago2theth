@@ -36,19 +36,32 @@
 # +------------------------------------------------------------------+
 
 
+def perfometer_logistic(value, color, value_half, value99):
+    result = '<table><tr>'
+    K = (value99 - value_half) / 4.6                 # log(1/99) = -4.6
+    pos = int(100.0 / ( 1.0 + math.exp( - (value - value_half) / K)) + 0.5)
+    result += perfometer_td(pos, color)
+    result += perfometer_td(100 - pos, "white")
+    result += '</tr></table>'
+    return result
+
 def perfometer_check_mk_papouch_papago2theth(row, check_command, perf_data):
+    state = row["service_state"]
     info = row["service_plugin_output"]
+    text = info.split(' - ', 1)[1]
+    (measure, rest) = text.split(': ', 1)
+    valunit = rest.split(' ', 1)[0]
+    unit = valunit.lstrip('0123456789.')
+    val = float(valunit[0:-len(unit)])
     color = '#00ff00'
-    if info.startswith('WARN'):
+    if state == 1:
         color = '#ffff00'
-    if info.startswith('CRIT'):
+    elif state == 2:
         color = '#ff0000'
-    valunit = info.split()[-1]
-    val = float(valunit.rstrip(u'°C%'))
-    if 'Humidity' in info:
+    if measure == 'Humidity':
         return valunit, perfometer_linear(val, color)
-    if 'Dew' in info:
-        return valunit, perfometer_logarithmic(val, 10, 1.2, color)
-    return valunit, perfometer_logarithmic(val, 21, 1.2, color)
+    if measure == 'Dew point':
+        return valunit, perfometer_logistic(val, color, 9, 30)
+    return valunit, perfometer_logistic(val, color, 20, 40)
 
 perfometers['check_mk-papouch_papago2theth'] = perfometer_check_mk_papouch_papago2theth
