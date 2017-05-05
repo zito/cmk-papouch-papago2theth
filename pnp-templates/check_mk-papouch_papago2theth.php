@@ -4,7 +4,7 @@
 # Author:	vaclav.ovsik@gmail.com
 
 # DS
-#   1 temp
+#   1 tempc
 
 $_WARNRULE = '#FFFF00';
 $_CRITRULE = '#FF0000';
@@ -17,15 +17,15 @@ if ($NAME[1] == 'dewp') {
     $ds_name[1] = "Humidity";
     $my_units = '%';
     $my_units2 = '%%';
-} elseif ($NAME[1] == 'temp') {
+} elseif ($NAME[1] == 'tempc') {
     $ds_name[1] = "Temperature";
     $my_units = $my_units2 = '°C';
 }
 
 $opt[1] = "--vertical-label '$my_units' --title \"$hostname / $servicedesc\" ";
-$def[1] = rrd::def("temp", $RRDFILE[1], $DS[1], "AVERAGE");
-$def[1] .= rrd::line1("temp", "#050", $ds_name[1]);
-$def[1] .= rrd::gprint("temp", array("LAST", "MIN", "MAX", "AVERAGE"), "%3.1lf$my_units2");
+$def[1] = rrd::def("tempc", $RRDFILE[1], $DS[1], "AVERAGE");
+$def[1] .= rrd::line1("tempc", "#050", $ds_name[1]);
+$def[1] .= rrd::gprint("tempc", array("LAST", "MIN", "MAX", "AVERAGE"), "%3.1lf$my_units2");
 
 $lc = $CRIT_MIN[1];
 $hc = $CRIT_MAX[1];

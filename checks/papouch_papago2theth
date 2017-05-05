@@ -47,7 +47,7 @@
 
 factory_settings["papouch_papago2theth"] = {
 # temperature levels [°C]
-    'temp_levels'   : (14, 17, 25, 28),
+    'tempc_levels'   : (14, 17, 25, 28),
 # humidity levels [%]
     'hum_levels'    : (20, 30, 70, 80),
 # dew point levels [°C]
@@ -55,10 +55,10 @@ factory_settings["papouch_papago2theth"] = {
     }
 
 papouch_papago2theth_desc = [
-    ('A', 'Temperature', 'temp', '°C'),
+    ('A', 'Temperature', 'tempc', '°C'),
     ('A', 'Humidity', 'hum', '%'),
     ('A', 'Dew point', 'dewp', '°C'),
-    ('B', 'Temperature', 'temp', '°C'),
+    ('B', 'Temperature', 'tempc', '°C'),
     ('B', 'Humidity', 'hum', '%'),
     ('B', 'Dew point', 'dewp', '°C'),
     ]
