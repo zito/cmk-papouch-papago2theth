@@ -45,7 +45,7 @@
 #
 
 
-factory_settings["papouch_papago2theth"] = {
+factory_settings["papouch_papago2theth_default_levels"] = {
 # temperature levels [°C]
     'tempc_levels'   : (14, 17, 25, 28),
 # humidity levels [%]
@@ -121,5 +121,5 @@ check_info["papouch_papago2theth"] = {
             '3',    # papago_temp_V02-MIB::inChValue
             '4',    # papago_temp_V02-MIB::inChUnits
         ]),
-    "default_levels_variable" : "papouch_papago2theth",
+    "default_levels_variable" : "papouch_papago2theth_default_levels",
 }
