@@ -51,7 +51,7 @@ def perfometer_check_mk_papouch_papago2theth(row, check_command, perf_data):
     text = info.split(' - ', 1)[1]
     (measure, rest) = text.split(': ', 1)
     valunit = rest.split(' ', 1)[0]
-    unit = valunit.lstrip('0123456789.')
+    unit = valunit.lstrip('-0123456789.')
     val = float(valunit[0:-len(unit)])
     color = '#00ff00'
     if state == 1:
