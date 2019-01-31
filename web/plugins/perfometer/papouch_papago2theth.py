@@ -37,13 +37,9 @@
 
 
 def perfometer_logistic(value, color, value_half, value99):
-    result = '<table><tr>'
     K = (value99 - value_half) / 4.6                 # log(1/99) = -4.6
     pos = int(100.0 / ( 1.0 + math.exp( - (value - value_half) / K)) + 0.5)
-    result += perfometer_td(pos, color)
-    result += perfometer_td(100 - pos, "white")
-    result += '</tr></table>'
-    return result
+    return render_perfometer([(pos, color), (100 - pos, "white")])
 
 def perfometer_check_mk_papouch_papago2theth(row, check_command, perf_data):
     state = row["service_state"]
