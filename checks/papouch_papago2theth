@@ -8,10 +8,11 @@
 # |           | |___| | | |  __/ (__|   <    | |  | | . \            |
 # |            \____|_| |_|\___|\___|_|\_\___|_|  |_|_|\_\           |
 # |                                                                  |
-# | Copyright Mathias Kettner 2015             mk@mathias-kettner.de |
+# | Copyright Mathias Kettner 2016             mk@mathias-kettner.de |
 # +------------------------------------------------------------------+
 #
-# The Check_MK official homepage is at http://mathias-kettner.de/check_mk.
+# This file is part of Check_MK.
+# The official homepage is at http://mathias-kettner.de/check_mk.
 #
 # check_mk is free software;  you can redistribute it and/or modify it
 # under the  terms of the  GNU General Public License  as published by
@@ -32,94 +33,208 @@
 # +------------------------------------------------------------------+
 # | This file has been contributed by:                               |
 # |                                                                  |
-# | Václav Ovsík <vaclav.ovsik@gmail.com>             Copyright 2017 |
+# | Václav Ovsík <vaclav.ovsik@gmail.com>             Copyright 2019 |
 # +------------------------------------------------------------------+
 
-# Example info:
-#   [['1', '0', '209', '0'],
-#    ['0', '4', '0', '0'],
-#    ['0', '4', '0', '0'],
-#    ['1', '0', '199', '0'],
-#    ['2', '0', '242', '0'],
-#    ['3', '0', '-11', '0']]
-#
 
+# papago_temp_V02-MIB::deviceName.0 = STRING: "termo-srv"
+# papago_temp_V02-MIB::psAlarmString.0 = ""
+# papago_temp_V02-MIB::inChType.1 = INTEGER: 1
+# papago_temp_V02-MIB::inChType.2 = INTEGER: 2
+# papago_temp_V02-MIB::inChType.3 = INTEGER: 3
+# papago_temp_V02-MIB::inChType.4 = INTEGER: 0
+# papago_temp_V02-MIB::inChType.5 = INTEGER: 0
+# papago_temp_V02-MIB::inChType.6 = INTEGER: 0
+# papago_temp_V02-MIB::inChStatus.1 = INTEGER: 0
+# papago_temp_V02-MIB::inChStatus.2 = INTEGER: 0
+# papago_temp_V02-MIB::inChStatus.3 = INTEGER: 0
+# papago_temp_V02-MIB::inChStatus.4 = INTEGER: 4
+# papago_temp_V02-MIB::inChStatus.5 = INTEGER: 4
+# papago_temp_V02-MIB::inChStatus.6 = INTEGER: 4
+# papago_temp_V02-MIB::inChValue.1 = INTEGER: 231
+# papago_temp_V02-MIB::inChValue.2 = INTEGER: 266
+# papago_temp_V02-MIB::inChValue.3 = INTEGER: 28
+# papago_temp_V02-MIB::inChValue.4 = INTEGER: 0
+# papago_temp_V02-MIB::inChValue.5 = INTEGER: 0
+# papago_temp_V02-MIB::inChValue.6 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.1 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.2 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.3 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.4 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.5 = INTEGER: 0
+# papago_temp_V02-MIB::inChUnits.6 = INTEGER: 0
+# papago_temp_V02-MIB::channelEntry.5.1 = NULL
 
-factory_settings["papouch_papago2theth_default_levels"] = {
-# temperature levels [°C]
-    'tempc_levels'   : (14, 17, 25, 28),
-# humidity levels [%]
-    'hum_levels'    : (20, 30, 70, 80),
-# dew point levels [°C]
-    'dewp_levels'   : (None, None, None, None),
+# .1.3.6.1.4.1.18248.31.1.1.1.0 = STRING: "termo-srv"
+# .1.3.6.1.4.1.18248.31.1.1.2.0 = ""
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.1 = INTEGER: 1
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.2 = INTEGER: 2
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.3 = INTEGER: 3
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.4 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.5 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.1.6 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.1 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.2 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.3 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.4 = INTEGER: 4
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.5 = INTEGER: 4
+# .1.3.6.1.4.1.18248.31.1.2.1.1.2.6 = INTEGER: 4
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.1 = INTEGER: 231
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.2 = INTEGER: 265
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.3 = INTEGER: 28
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.4 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.5 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.3.6 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.1 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.2 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.3 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.4 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.5 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.4.6 = INTEGER: 0
+# .1.3.6.1.4.1.18248.31.1.2.1.1.5.1 = NULL
+
+def parse_papouch_papago2theth(info):
+    map_sensor_type = {
+        "1": "temp",
+        "2": "humidity",
+        "3": "dewpoint",
     }
 
-papouch_papago2theth_desc = [
-    ('A', 'Temperature', 'tempc', '°C'),
-    ('A', 'Humidity', 'hum', '%'),
-    ('A', 'Dew point', 'dewp', '°C'),
-    ('B', 'Temperature', 'tempc', '°C'),
-    ('B', 'Humidity', 'hum', '%'),
-    ('B', 'Dew point', 'dewp', '°C'),
-    ]
+    map_sensor_human = {
+        "1": "Temperature",
+        "2": "Humidity",
+        "3": "Dew point",
+    }
+
+    oid_units = ( "c", "%", "c" )
+
+    sensor_name = ( 'A', 'B' )
+
+    map_states = {
+        "0": (0, "OK"),
+        "1": (3, "not available"),
+        "2": (1, "over-flow"),
+        "3": (1, "under-flow"),
+        "4": (2, "error"),
+    }
+
+    parsed = {}
+    for oidend, typeid, state, reading_str in info:
+        if state != "4":
+            i = int(oidend) -1
+            sensor_ty = map_sensor_type[typeid]
+            sensor_unit = oid_units[i % 3]
+            parsed.setdefault(sensor_ty, {})
+            parsed[sensor_ty].setdefault("Sensor %s %s" \
+                    % (sensor_name[i/3], map_sensor_human[typeid]), (
+                map_states[state],
+                saveint(reading_str) / 10.0,
+                sensor_unit,
+            ))
+
+    return parsed
 
 
-def inventory_papouch_papago2theth(info):
-    for (sens, name, ident, unit), (chtype, chstatus, chval, chunit) \
-            in zip(papouch_papago2theth_desc, info):
-        if chstatus == '4':
-            continue
-        yield sens + ' ' + name, {}
-
-def check_papouch_papago2theth(item, params, info):
-    def xstr(x):
-        if x is None:
-            return ''
-        return str(x)
-    for (sens, name, ident, unit), (chtype, chstatus, chval, chunit) \
-            in zip(papouch_papago2theth_desc, info):
-        if sens + ' ' + name == item:
-            chval = saveint(chval) / 10.0
-            if chunit == '1':
-                chval = chval - 32 / 1.8    # Fahrenheit -> Celsius
-            elif chunit == '2':
-                chval = chval - 273.15      # Kelvin -> Celsius
-            status = 0
-            txt = '%s: %.1f%s' % (name, chval, unit)
-            (crit_min, warn_min, warn_max, crit_max) = params[ident + '_levels']
-            if crit_min is not None and chval <= crit_min:
-                status = 2
-                txt += ' (!!) <= %.1f' % crit_min
-            elif warn_min is not None and chval <= warn_min:
-                status = 1
-                txt += ' (!) <= %.1f' % warn_min
-            elif crit_max is not None and chval >= crit_max:
-                status = 2
-                txt += ' (!!) >= %.1f' % crit_max
-            elif warn_max is not None and chval >= warn_max:
-                status = 1
-                txt += ' (!) >= %.1f' % warn_max
-            perf = (ident, chval)
-            perf += tuple(map(lambda x: x or None, (
-                ':'.join(filter(None, (xstr(warn_min), xstr(warn_max)))),
-                ':'.join(filter(None, (xstr(crit_min), xstr(crit_max)))))))
-            return (status, {0:'OK', 1:'WARN', 2:'CRIT'}[status]
-                    + ' - ' + txt, (perf, ))
-    return (3, 'UNKNOWN - Item not found')
+#   .--temperature---------------------------------------------------------.
+#   |      _                                      _                        |
+#   |     | |_ ___ _ __ ___  _ __   ___ _ __ __ _| |_ _   _ _ __ ___       |
+#   |     | __/ _ \ '_ ` _ \| '_ \ / _ \ '__/ _` | __| | | | '__/ _ \      |
+#   |     | ||  __/ | | | | | |_) |  __/ | | (_| | |_| |_| | | |  __/      |
+#   |      \__\___|_| |_| |_| .__/ \___|_|  \__,_|\__|\__,_|_|  \___|      |
+#   |                       |_|                                            |
+#   +----------------------------------------------------------------------+
+#   |                               main check                             |
+#   '----------------------------------------------------------------------'
 
 
+def inventory_papouch_papago2theth_temp(parsed, what):
+    for item in parsed[what]:
+        yield item, {}
 
-check_info["papouch_papago2theth"] = {
-    "check_function"        : check_papouch_papago2theth,
-    "inventory_function"    : inventory_papouch_papago2theth,
-    "service_description"   : "Sensor %s",
-    "has_perfdata"          : True,
-    "snmp_scan_function"    : lambda oid: "Papago_2TH_ETH" == oid(".1.3.6.1.2.1.1.1.0"),
-    "snmp_info"		    : ( ".1.3.6.1.4.1.18248.31.1.2.1.1", [
-            '1',    # papago_temp_V02-MIB::inChType
-            '2',    # papago_temp_V02-MIB::inChStatus
-            '3',    # papago_temp_V02-MIB::inChValue
-            '4',    # papago_temp_V02-MIB::inChUnits
-        ]),
-    "default_levels_variable" : "papouch_papago2theth_default_levels",
+
+def check_papouch_papago2theth_temp(item, params, parsed, what):
+    if item in parsed[what]:
+        (state, state_readable), reading, unit = parsed[what][item]
+        return check_temperature(reading,
+                                 params,
+                                 "papouch_papago2theth_%s_%s" % (what, item),
+                                 dev_unit=unit,
+                                 dev_status=state,
+                                 dev_status_name=state_readable)
+
+
+check_info['papouch_papago2theth'] = {
+    'parse_function'            : parse_papouch_papago2theth,
+    'inventory_function'        : lambda parsed: \
+        inventory_papouch_papago2theth_temp(parsed, "temp"),
+    'check_function'            : lambda item, params, parsed: \
+        check_papouch_papago2theth_temp(item, params, parsed, "temp"),
+    'service_description'       : '%s',
+    'has_perfdata'              : True,
+    'snmp_info'		        : ( ".1.3.6.1.4.1.18248.31.1.2.1.1", [
+                                        OID_END,
+                                        '1',    # papago_temp_V02-MIB::inChType
+                                        '2',    # papago_temp_V02-MIB::inChStatus
+                                        '3',    # papago_temp_V02-MIB::inChValue
+                                  ]),
+    'snmp_scan_function'        : lambda oid: "Papago_2TH_ETH" == oid(".1.3.6.1.2.1.1.1.0"),
+    'includes'                  : [ 'temperature.include' ],
+    'group'                     : 'temperature',
+}
+
+#.
+#   .--dew point-----------------------------------------------------------.
+#   |                _                             _       _               |
+#   |             __| | _____      __  _ __   ___ (_)_ __ | |_             |
+#   |            / _` |/ _ \ \ /\ / / | '_ \ / _ \| | '_ \| __|            |
+#   |           | (_| |  __/\ V  V /  | |_) | (_) | | | | | |_             |
+#   |            \__,_|\___| \_/\_/   | .__/ \___/|_|_| |_|\__|            |
+#   |                                 |_|                                  |
+#   '----------------------------------------------------------------------'
+
+
+check_info['papouch_papago2theth.dewpoint'] = {
+    'inventory_function'        : lambda parsed: \
+        inventory_papouch_papago2theth_temp(parsed, "dewpoint"),
+    'check_function'            : lambda item, params, parsed: \
+        check_papouch_papago2theth_temp(item, params, parsed, "dewpoint"),
+    'service_description'       : '%s',
+    'has_perfdata'              : True,
+    'includes'                  : [ 'temperature.include' ],
+    'group'                     : 'temperature',
+}
+
+#.
+#   .--humidity------------------------------------------------------------.
+#   |              _                     _     _ _ _                       |
+#   |             | |__  _   _ _ __ ___ (_) __| (_) |_ _   _               |
+#   |             | '_ \| | | | '_ ` _ \| |/ _` | | __| | | |              |
+#   |             | | | | |_| | | | | | | | (_| | | |_| |_| |              |
+#   |             |_| |_|\__,_|_| |_| |_|_|\__,_|_|\__|\__, |              |
+#   |                                                  |___/               |
+#   '----------------------------------------------------------------------'
+
+# Suggested by customer
+papouch_papago2theth_humidity_default_levels = (8, 12, 30, 35)
+
+
+def inventory_papouch_papago2theth_humidity(parsed):
+    for item in parsed["humidity"]:
+        yield item, "papouch_papago2theth_humidity_default_levels"
+
+
+def check_papouch_papago2theth_humidity(item, params, parsed):
+    if item in parsed["humidity"]:
+        (state, state_readable), reading, _unit = parsed["humidity"][item]
+        yield state, "Status: %s" % state_readable
+        yield check_humidity(reading, params)
+
+
+check_info['papouch_papago2theth.humidity'] = {
+    'inventory_function': inventory_papouch_papago2theth_humidity,
+    'check_function': check_papouch_papago2theth_humidity,
+    'service_description': '%s',
+    'has_perfdata': True,
+    'includes': ['humidity.include'],
+    'group': 'humidity',
 }
