@@ -68,22 +68,25 @@
 import enum
 import pydantic
 
-from .agent_based_api.v1.type_defs import CheckResult, DiscoveryResult, StringTable
-from .agent_based_api.v1 import (
+from cmk.agent_based.v2 import (
+    CheckPlugin,
+    CheckResult,
+    DiscoveryResult,
     OIDEnd,
     Result,
     SNMPTree,
     Service,
+    SimpleSNMPSection,
     State,
+    StringTable,
     all_of,
     contains,
     get_value_store,
     startswith,
-    register,
 )
 
-from .utils.humidity import check_humidity
-from .utils.temperature import check_temperature, TempParamType
+from cmk.plugins.lib.humidity import check_humidity, CheckParams
+from cmk.plugins.lib.temperature import check_temperature, TempParamType
 
 
 class SensorType(enum.IntEnum):
@@ -142,7 +145,7 @@ def parse_papouch_papago2theth(string_table: StringTable) -> Section:
     return section
 
 
-register.snmp_section(
+snmp_section_papouch_papago2theth = SimpleSNMPSection(
     name="papouch_papago2theth",
     detect=all_of(
         startswith(".1.3.6.1.2.1.1.2.0", ".0.10.43.6.1.4.1"),
@@ -194,7 +197,7 @@ def check_papouch_papago2theth_temp(
 #   |                               main check                             |
 #   '----------------------------------------------------------------------'
 
-register.check_plugin(
+check_plugin_papouch_papago2theth_temp = CheckPlugin(
     name="papouch_papago2theth",
     sections=["papouch_papago2theth"],
     service_name="%s",
@@ -217,7 +220,7 @@ register.check_plugin(
 #   |                                 |_|                                  |
 #   '----------------------------------------------------------------------'
 
-register.check_plugin(
+check_plugin_papouch_papago2theth_dewpoint = CheckPlugin(
     name="papouch_papago2theth_dewpoint",
     sections=["papouch_papago2theth"],
     service_name="%s",
@@ -248,7 +251,7 @@ PAPOUCH_PAPAGO2THETH_HUMIDITY_DEFAULT_PARAMETERS = {
 
 def check_papouch_papago2theth_humidity(
     item: str,
-    params,
+    params: CheckParams,
     section: Section,
 ) -> CheckResult:
 
@@ -258,7 +261,7 @@ def check_papouch_papago2theth_humidity(
             yield from check_humidity(humidity=s.reading, params=params)
 
 
-register.check_plugin(
+check_plugin_papouch_papago2theth_humidity = CheckPlugin(
     name="papouch_papago2theth_humidity",
     sections=["papouch_papago2theth"],
     service_name="%s",
