@@ -245,8 +245,8 @@ check_plugin_papouch_papago2theth_dewpoint = CheckPlugin(
 
 
 PAPOUCH_PAPAGO2THETH_HUMIDITY_DEFAULT_PARAMETERS = {
-    "levels": (60, 80),
-    "levels_lower": (30, 20),
+    "levels": (60.0, 80.0),
+    "levels_lower": (30.0, 20.0),
 }
 
 def check_papouch_papago2theth_humidity(
